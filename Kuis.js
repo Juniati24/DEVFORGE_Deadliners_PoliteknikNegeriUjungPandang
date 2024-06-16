@@ -11,6 +11,7 @@ class Kuis extends Phaser.Scene {
         this.load.image('akhirKuis', 'assets/Frame skor1.png');
         this.load.audio('jawabanSalah', 'music/negative_beeps-6008.mp3');
         this.load.audio('jawabanBenar', 'music/correct-2-46134.mp3');
+        this.load.audio('tepukTangan', 'music/applause-alks-ses-efekti-125030.mp3');
         this.load.json('soal', 'soal.json'); // file json
     }
 
@@ -55,20 +56,20 @@ class Kuis extends Phaser.Scene {
 
         // Input untuk jawaban
         const inputText = this.add.dom(
-        this.cameras.main.width / 2,
-        this.cameras.main.height / 2 + 50, 
-        'input', 
-        'border: 2px solid #000; width: 400px; padding: 10px; font-size: 24px; text-align: center;'
-    ).setOrigin(0.5);
+            this.cameras.main.width / 2,
+            this.cameras.main.height / 2, 
+            'input', 
+            ' width: 50%; padding: 10px; font-size: 24px; text-align: center;'
+        ).setOrigin(0.5);
 
          inputText.node.placeholder = 'Masukkan jawaban...';
 
         // Tombol submit
         const submitButton = this.add.dom(
-        this.cameras.main.width / 2,
-        this.cameras.main.height / 2 + 150, 
-        'button', 
-        'border: none; background-color: #4CAF50; color: white; padding: 10px 24px; text-align: center; font-size: 24px; cursor: pointer;'
+            this.cameras.main.width / 2,
+            this.cameras.main.height / 2 + 150, 
+            'button', 
+            'border: none; background-color: #4CAF50; color: white; padding: 10px 24px; text-align: center; font-size: 24px; cursor: pointer; margin-left: -30px;'
         ).setOrigin(0.5);
         submitButton.node.textContent = 'Submit';
 
@@ -81,7 +82,26 @@ class Kuis extends Phaser.Scene {
 
             if (userAnswer === correctAnswer) {
                 this.score += questionData.score; // Menambahkan skor jika jawaban benar
-                this.scoreText.setText('Skor: ' + this.score); // Update teks skor
+                this.scoreText.setText(this.score); // Update teks skor
+                // this.add.image(0, 0, 'benar').setOrigin(0, 0);
+
+                // menampilkan asset jawaban benar
+                const jawabanBenar = this.sound.add('jawabanBenar');
+                const correctImage = this.add.image(
+                    this.cameras.main.width / 2,
+                    this.cameras.main.height / 2 ,
+                    'benar',
+                ).setOrigin(0.5);
+                jawabanBenar.play();
+                correctImage.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
+
+                submitButton.destroy();
+                inputText.destroy();
+
+                // Hapus gambar jawaban benar setelah 1 detik
+                this.time.delayedCall(1000, () => {
+                    correctImage.destroy();
+                });
                 console.log('Jawaban benar! Skor Anda bertambah ' + questionData.score + ' poin.');
             } else {
 
@@ -116,11 +136,13 @@ class Kuis extends Phaser.Scene {
                     this.currentQuestionIndex++;
                     this.showQuestion(this.currentQuestionIndex);
                 } else {
+                    const tepukTangan = this.sound.add('tepukTangan');
                     const akhirKuis = this.add.image(
                         this.cameras.main.width / 2,
                         this.cameras.main.height / 2 ,
                         'akhirKuis',
                     ).setOrigin(0.5);
+                    tepukTangan.play();
 
                     const finalScore = this.add.text(
                         this.cameras.main.width / 2, 100,
@@ -132,7 +154,7 @@ class Kuis extends Phaser.Scene {
                     akhirKuis.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
                     console.log('Pertanyaan selesai.');
                     console.log(this.score);
-                    this.time.delayedCall(3000, () => {
+                    this.time.delayedCall(12000, () => {
                         this.scene.start('Home');
                     });
                 }
