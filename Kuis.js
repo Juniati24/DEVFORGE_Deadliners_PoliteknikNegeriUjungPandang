@@ -19,8 +19,8 @@ class Kuis extends Phaser.Scene {
         // Menampilkan skor 
         this.scoreText = this.add.text(
             this.cameras.main.width / 2, 100,
-            'Skor: ' + this.score, { fontSize: '35px', fill: '#000', align: 'center' }
-        ).setOrigin(0.5);
+            this.score, { fontSize: '35px', fill: '#000', align: 'center' }
+        ).setOrigin(0.5, 0.2);
 
         // Menampilkan pertanyaan pertama
         this.currentQuestionIndex = 0;
@@ -44,14 +44,14 @@ class Kuis extends Phaser.Scene {
         // Menampilkan pertanyaan 
         const questionText = this.add.text(
             this.cameras.main.width / 2,
-            this.cameras.main.height / 2,
+            this.cameras.main.height / 2.5,
             questionData.question, { fontSize: '32px', fill: '#fff', align: 'center' }
         ).setOrigin(0.5, 0.5);
 
         // Input untuk jawaban
         const inputText = this.add.dom(
         this.cameras.main.width / 2,
-        this.cameras.main.height / 2 + 50, 
+        this.cameras.main.height / 2, 
         'input', 
         'border: 2px solid #000; width: 400px; padding: 10px; font-size: 24px; text-align: center;'
     ).setOrigin(0.5);
@@ -63,7 +63,7 @@ class Kuis extends Phaser.Scene {
         this.cameras.main.width / 2,
         this.cameras.main.height / 2 + 150, 
         'button', 
-        'border: none; background-color: #4CAF50; color: white; padding: 10px 24px; text-align: center; font-size: 24px; cursor: pointer;'
+        'border: none; background-color: #4CAF50; color: white; padding: 10px 24px; text-align: center; font-size: 24px; cursor: pointer; margin-left: -30px;'
         ).setOrigin(0.5);
         submitButton.node.textContent = 'Submit';
 
@@ -76,7 +76,7 @@ class Kuis extends Phaser.Scene {
 
             if (userAnswer === correctAnswer) {
                 this.score += questionData.score; // Menambahkan skor jika jawaban benar
-                this.scoreText.setText('Skor: ' + this.score); // Update teks skor
+                this.scoreText.setText(this.score); // Update teks skor
                 console.log('Jawaban benar! Skor Anda bertambah ' + questionData.score + ' poin.');
             } else {
                 console.log('Jawaban salah.');
