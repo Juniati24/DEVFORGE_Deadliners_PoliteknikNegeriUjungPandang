@@ -2,13 +2,16 @@ class Lontara extends Phaser.Scene {
     constructor() {
         super({ key: 'Lontara' });
         this.currentContentIndex = 0;
-        this.contents = ['LontaraContent1', 'LontaraContent2']; // Daftar konten
+        this.contents = ['LontaraContent1', 'LontaraContent2', 'LontaraContent3', 'LontaraContent5', 'LontaraContent4']; // Daftar konten
     }
 
     preload() {
         this.load.image('Lontaratbg', 'assets/bg.png');
         this.load.image('LontaraContent1', 'assets/papan menu balajar lontara 1.png');
         this.load.image('LontaraContent2', 'assets/papan menu balajar lontara 2.png');
+        this.load.image('LontaraContent3', 'assets/papan menu balajar lontara 3.png');
+        this.load.image('LontaraContent4', 'assets/papan menu balajar lontara 4.png');
+        this.load.image('LontaraContent5', 'assets/papan menu balajar lontara 5.png');
         this.load.image('buttonBack', 'assets/button kembali.png');
         this.load.image('buttonKiri', 'assets/button geser ke kiri.png');
         this.load.image('buttonKanan', 'assets/button geser ke kanan.png');
@@ -46,7 +49,7 @@ class Lontara extends Phaser.Scene {
         // Responsif saat ukuran jendela berubah
         window.addEventListener('resize', () => {
             this.game.scale.resize(window.innerWidth, window.innerHeight);
-            this.resizeImage(rumahAdatbg);
+            this.resizeImage(Lontaratbg);
             this.resizeContent(this.currentContent);
             buttonBack.setPosition(80, 80);
 
