@@ -6,6 +6,10 @@ class Kuis extends Phaser.Scene {
 
     preload() {
         this.load.image('kuisbg', 'assets/Frame quiz.png');
+        this.load.image('benar', 'assets/Frame benar.png');
+        this.load.image('salah', 'assets/Frame salah.png');
+        this.load.audio('jawabanSalah', 'music/negative_beeps-6008.mp3');
+        this.load.audio('jawabanBenar', 'music/correct-2-46134.mp3');
         this.load.json('soal', 'soal.json'); // file json
     }
 
@@ -53,7 +57,7 @@ class Kuis extends Phaser.Scene {
             this.cameras.main.width / 2,
             this.cameras.main.height / 2, 
             'input', 
-            'border: 2px solid #000; width: 400px; padding: 10px; font-size: 24px; text-align: center;'
+            ' width: 50%; padding: 10px; font-size: 24px; text-align: center;'
         ).setOrigin(0.5);
 
          inputText.node.placeholder = 'Masukkan jawaban...';
@@ -77,15 +81,52 @@ class Kuis extends Phaser.Scene {
             if (userAnswer === correctAnswer) {
                 this.score += questionData.score; // Menambahkan skor jika jawaban benar
                 this.scoreText.setText(this.score); // Update teks skor
+                // this.add.image(0, 0, 'benar').setOrigin(0, 0);
+
+                // menampilkan asset jawaban benar
+                const jawabanBenar = this.sound.add('jawabanBenar');
+                const correctImage = this.add.image(
+                    this.cameras.main.width / 2,
+                    this.cameras.main.height / 2 ,
+                    'benar',
+                ).setOrigin(0.5);
+                jawabanBenar.play();
+                correctImage.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
+
+                submitButton.destroy();
+                inputText.destroy();
+
+                // Hapus gambar jawaban benar setelah 1 detik
+                this.time.delayedCall(1000, () => {
+                    correctImage.destroy();
+                });
                 console.log('Jawaban benar! Skor Anda bertambah ' + questionData.score + ' poin.');
             } else {
+
+                // menampilkan asset jawaban salah
+                const jawabanSalah = this.sound.add('jawabanSalah');
+                const wrongImage = this.add.image(
+                    this.cameras.main.width / 2,
+                    this.cameras.main.height / 2 ,
+                    'salah',
+                ).setOrigin(0.5);
+                jawabanSalah.play();
+                wrongImage.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
+
+                submitButton.destroy();
+                inputText.destroy();
+
+                // Hapus gambar jawaban salah setelah 1 detik
+                this.time.delayedCall(1000, () => {
+                    wrongImage.destroy();
+                });
                 console.log('Jawaban salah.');
             }
 
             // Pindah ke pertanyaan berikutnya setelah 1 detik
             this.time.delayedCall(1000, () => {
                 questionText.destroy();
-                inputText.node.value = ''; // Mengosongkan input setelah setiap jawaban
+                // inputText.node.value = ''; // Mengosongkan input setelah setiap jawaban
                 submitButton.destroy();
 
                 // Menampilkan pertanyaan berikutnya jika masih ada
@@ -94,7 +135,7 @@ class Kuis extends Phaser.Scene {
                     this.showQuestion(this.currentQuestionIndex);
                 } else {
                     console.log('Pertanyaan selesai.');
-                    // this.scene.start('SkorAkhir');
+                    this.scene.start('SkorAkhir');
                 }
             });
         });
