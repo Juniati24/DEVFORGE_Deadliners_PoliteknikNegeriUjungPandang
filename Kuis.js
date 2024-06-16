@@ -8,6 +8,7 @@ class Kuis extends Phaser.Scene {
         this.load.image('kuisbg', 'assets/Frame quiz.png');
         this.load.image('benar', 'assets/Frame benar.png');
         this.load.image('salah', 'assets/Frame salah.png');
+        this.load.image('akhirKuis', 'assets/Frame skor1.png');
         this.load.audio('jawabanSalah', 'music/negative_beeps-6008.mp3');
         this.load.audio('jawabanBenar', 'music/correct-2-46134.mp3');
         this.load.json('soal', 'soal.json'); // file json
@@ -134,8 +135,25 @@ class Kuis extends Phaser.Scene {
                     this.currentQuestionIndex++;
                     this.showQuestion(this.currentQuestionIndex);
                 } else {
+                    const akhirKuis = this.add.image(
+                        this.cameras.main.width / 2,
+                        this.cameras.main.height / 2 ,
+                        'akhirKuis',
+                    ).setOrigin(0.5);
+
+                    const finalScore = this.add.text(
+                        this.cameras.main.width / 2, 100,
+                        this.score, { fontSize: '60px', fill: '#fff', align: 'center' }
+                    ).setOrigin(0.5, -5);
+
+                    finalScore.setText(this.score);
+
+                    akhirKuis.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
                     console.log('Pertanyaan selesai.');
-                    this.scene.start('SkorAkhir');
+                    console.log(this.score);
+                    this.time.delayedCall(3000, () => {
+                        this.scene.start('Home');
+                    });
                 }
             });
         });
