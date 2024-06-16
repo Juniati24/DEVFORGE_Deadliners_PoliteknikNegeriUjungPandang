@@ -18,7 +18,11 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [ musikBg, Home, Tentang, Belajar, bajuAdat, alatMusik, rumahAdat, Lontara, Bermain, Kuis, menulisLontara], 
+    scene: [ musikBg, Home, Tentang, Belajar, bajuAdat, alatMusik, rumahAdat, Lontara, Bermain, Kuis, menulisLontara],
+    parent: 'gameContainer',
+    dom: {
+        createContainer: true
+    },
     physics: {
         default: 'arcade',
         arcade: {
