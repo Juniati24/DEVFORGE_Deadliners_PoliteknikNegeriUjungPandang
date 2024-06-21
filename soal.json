@@ -1,32 +1,62 @@
 [
     {
         "id": 1,
-        "question": "Baju adat Toraja wanita disebut?",
+        "question": "Baju adat Toraja wanita disebut ?",
         "answer": "Baju Pokko",
         "score": 10
     },
     {
         "id": 2,
-        "question": "Apa nama gunung tertinggi di dunia?",
-        "answer": "Everest",
+        "question": "Alat musik Talindo berasal dari daerah ?",
+        "answer": "Toraja",
         "score": 10
     },
     {
         "id": 3,
-        "question": "Apa nama sungai terpanjang di dunia?",
-        "answer": "Nil",
+        "question": "Alat musik Kecaping dimainkan dengan cara ?",
+        "answer": "Dipetik",
         "score": 20
     },
     {
         "id": 4,
-        "question": "Siapakah penemu bola lampu?",
-        "answer": "Thomas Edison",
+        "question": "Baju adat Sulawesi Selatan yang masuk ke dalam deretan pakaian adat tertua yang ada di dunia adalah ?",
+        "answer": "Baju Bodo",
         "score": 20
     },
     {
         "id": 5,
-        "question": "Apa nama hewan tercepat di darat?",
-        "answer": "Cheetah",
+        "question": "Huruf lontara yang memiliki fungsi yang mirip dengan titik dan koma ?",
+        "answer": "Pallawa",
+        "score": 30
+    },
+    {
+        "id": 6,
+        "question": "Apa bacaan dari kata ᨈᨗᨑᨚ ?",
+        "answer": "Tinro",
+        "score": 40
+    },
+    {
+        "id": 7,
+        "question": "Rumah adat Sulawesi Selatan yang secara harfiah berarti rumah besar atau rumah kebesaran yang dihuni oleh raja ?",
+        "answer": "Balla Lompoa",
+        "score": 30
+    },
+    {
+        "id": 8,
+        "question": "Huruf lontara ᨅ ᨀ dibaca ?",
+        "answer": "Baka",
+        "score": 30
+    },
+    {
+        "id": 9,
+        "question": "Bunyi huruf lontara ᨒ ᨒᨗ ᨒᨘ ialah ?",
+        "answer": "La-Li-Lu",
+        "score": 40
+    },
+    {
+        "id": 10,
+        "question": "Huruf aksara lontara dalam bahasa daerah bugis terdiri dari ?",
+        "answer": "23",
         "score": 30
     }
 ]
