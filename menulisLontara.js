@@ -19,7 +19,29 @@ class menulisLontara extends Phaser.Scene {
         });
 
         this.drawingBoard = new DrawingBoard(this, 100, 170, 400, 300);
-        this.resizeImage(this.drawingBoard)
+        // Menambahkan tombol "Mulai Menulis"
+        this.startButton = this.add.text(50, 500, 'Mulai Menulis', { fontSize: '20px', fill: '#000' })
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.drawingBoard.isDrawingEnabled = true;
+            });
+
+        // Menambahkan tombol "Hapus"
+        this.clearButton = this.add.text(200, 500, 'Hapus', { fontSize: '20px', fill: '#000' })
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.drawingBoard.clear();
+                this.drawingBoard.fillStyle(0xffffff, 1);
+                this.drawingBoard.fillRect(0, 0, this.drawingBoard.width, this.drawingBoard.height);
+                this.drawingBoard.strokeRect(0, 0, this.drawingBoard.width, this.drawingBoard.height);
+            });
+
+        // Menambahkan tombol "Tangkap Gambar"
+        this.captureButton = this.add.text(350, 500, 'Tangkap Gambar', { fontSize: '20px', fill: '#000' })
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.drawingBoard.captureCanvasImage();
+            });
     }
     resizeImage(image) {
         image.setDisplaySize(window.innerWidth, window.innerHeight);
