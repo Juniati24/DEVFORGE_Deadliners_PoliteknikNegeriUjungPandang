@@ -1,3 +1,4 @@
+import DrawingBoard from "./object/drawingBoard.js";
 class menulisLontara extends Phaser.Scene {
     constructor() {
         super({ key: 'menulisLontara' });
@@ -17,25 +18,35 @@ class menulisLontara extends Phaser.Scene {
             this.resizeImage(menulisbg);
         });
 
-        // Membuat canvas untuk menulis 
-        const canvasWidth = 400; // Lebar canvas
-        const canvasHeight = window.innerHeight; // Tinggi canvas 
-        const canvas = this.add.dom(
-            canvasWidth / 2, // Posisi X di tengah kiri
-            window.innerHeight / 2, // Posisi Y di tengah layar
-            'canvas', 
-            `width: ${canvasWidth}px; height: ${canvasHeight}px; border: 2px solid #000;`
-        ).setOrigin(0.5);
+        this.drawingBoard = new DrawingBoard(this, 100, 170, 400, 300);
+        // Menambahkan tombol "Mulai Menulis"
+        this.startButton = this.add.text(50, 500, 'Mulai Menulis', { fontSize: '20px', fill: '#000' })
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.drawingBoard.isDrawingEnabled = true;
+            });
 
-        // Menyimpan konteks 2D dari canvas untuk digunakan
-        const graphics = canvas.node.getContext('2d');
-        graphics.fillStyle = '#ffffff'; // Warna fill putih
-        graphics.fillRect(0, 0, canvasWidth, canvasHeight); // Mengisi canvas dengan warna putih
+        // Menambahkan tombol "Hapus"
+        this.clearButton = this.add.text(200, 500, 'Hapus', { fontSize: '20px', fill: '#000' })
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.drawingBoard.clear();
+                this.drawingBoard.fillStyle(0xffffff, 1);
+                this.drawingBoard.fillRect(0, 0, this.drawingBoard.width, this.drawingBoard.height);
+                this.drawingBoard.strokeRect(0, 0, this.drawingBoard.width, this.drawingBoard.height);
+            });
+
+        // Menambahkan tombol "Tangkap Gambar"
+        this.captureButton = this.add.text(350, 500, 'Tangkap Gambar', { fontSize: '20px', fill: '#000' })
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.drawingBoard.captureCanvasImage();
+            });
     }
-
     resizeImage(image) {
         image.setDisplaySize(window.innerWidth, window.innerHeight);
-    }
+    }    
+
 }
 
 export default menulisLontara;
