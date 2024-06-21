@@ -34,21 +34,21 @@ class Bermain extends Phaser.Scene {
         const button2X = centerX + buttonSpacing;
 
         const bermainButton1 = this.createButton(button1X, centerY, 'bermainButton1', buttonSound, () => {
-        this.scene.start('Kuis');
-    });
+            this.scene.start('Kuis');
+        });
 
         const bermainButton2 = this.createButton(button2X, centerY, 'bermainButton2', buttonSound, () => {
-        this.scene.start('menulisLontara');
-    });
+            this.scene.start('menulisLontara');
+        });
 
         // tombol home
         const buttonMargin = 60; 
         const buttonHome = this.createButton(buttonMargin, buttonMargin, 'buttonHome', soundHome, () => {
-        buttonHome.setOrigin(0, 0); 
-        this.scene.start('Home');
-     });
+            buttonHome.setOrigin(0, 0); 
+            this.scene.start('Home');
+        });
 
-     // responsif saat ukuran jendela berubah
+        // responsif saat ukuran jendela berubah
         window.addEventListener('resize', () => {
             this.game.scale.resize(window.innerWidth, window.innerHeight);
             this.resizeImage(bermainbg);
@@ -56,17 +56,17 @@ class Bermain extends Phaser.Scene {
             this.resizeButton(bermainButton1);
             this.resizeButton(bermainButton2);
 
-        // Update posisi tombol saat jendela diubah ukurannya
-        const newCenterX = window.innerWidth / 2;
-        const newCenterY = window.innerHeight / 2;
+            // Update posisi tombol saat jendela diubah ukurannya
+            const newCenterX = window.innerWidth / 2;
+            const newCenterY = window.innerHeight / 2;
 
-        const newButton1X = newCenterX - buttonSpacing;
-        const newButton2X = newCenterX + buttonSpacing;
+            const newButton1X = newCenterX - buttonSpacing;
+            const newButton2X = newCenterX + buttonSpacing;
 
-        bermainButton1.setPosition(newButton1X, newCenterY);
-        bermainButton2.setPosition(newButton2X, newCenterY);
-    });
-}
+            bermainButton1.setPosition(newButton1X, newCenterY);
+            bermainButton2.setPosition(newButton2X, newCenterY);
+        });
+    }
 
     resizeImage(image) {
         image.setDisplaySize(window.innerWidth, window.innerHeight);

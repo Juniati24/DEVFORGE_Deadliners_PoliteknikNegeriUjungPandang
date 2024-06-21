@@ -1,3 +1,4 @@
+import DrawingBoard from "./object/drawingBoard.js";
 class menulisLontara extends Phaser.Scene {
     constructor() {
         super({ key: 'menulisLontara' });
@@ -17,25 +18,13 @@ class menulisLontara extends Phaser.Scene {
             this.resizeImage(menulisbg);
         });
 
-        // Membuat canvas untuk menulis 
-        const canvasWidth = 400; // Lebar canvas
-        const canvasHeight = window.innerHeight; // Tinggi canvas 
-        const canvas = this.add.dom(
-            canvasWidth / 2, // Posisi X di tengah kiri
-            window.innerHeight / 2, // Posisi Y di tengah layar
-            'canvas', 
-            `width: ${canvasWidth}px; height: ${canvasHeight}px; border: 2px solid #000;`
-        ).setOrigin(0.5);
-
-        // Menyimpan konteks 2D dari canvas untuk digunakan
-        const graphics = canvas.node.getContext('2d');
-        graphics.fillStyle = '#ffffff'; // Warna fill putih
-        graphics.fillRect(0, 0, canvasWidth, canvasHeight); // Mengisi canvas dengan warna putih
+        this.drawingBoard = new DrawingBoard(this, 100, 170, 400, 300);
+        this.resizeImage(this.drawingBoard)
     }
-
     resizeImage(image) {
         image.setDisplaySize(window.innerWidth, window.innerHeight);
-    }
+    }    
+
 }
 
 export default menulisLontara;
