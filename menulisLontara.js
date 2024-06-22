@@ -182,10 +182,8 @@ class menulisLontara extends Phaser.Scene {
 
         // Menambahkan latar belakang putih dan gambar soal
         this.questionBackground = this.add.graphics();
-        this.questionBackground.fillStyle(0xffffff, 1);
-        this.questionBackground.fillRect(679, 167, 530, 378); // Ukuran latar belakang sesuai dengan gambar soal
 
-        this.questionImage = this.add.image(850, 270, this.questions[this.currentQuestionIndex].imageKey).setOrigin(0, 0);
+        this.questionImage = this.add.image(820, 200, this.questions[this.currentQuestionIndex].imageKey).setOrigin(0, 0);
         this.scoreText = this.add.text(700, 50, `Skor: ${this.score}`, { fontSize: '20px', fill: '#000' });
     }
 
