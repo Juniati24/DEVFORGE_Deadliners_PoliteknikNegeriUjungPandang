@@ -39,15 +39,19 @@ class menulisLontara extends Phaser.Scene {
         this.load.image('heart', 'assets/heart.png')
         this.load.image('menulisbg', 'assets/Frame pengenalan lontara.png');
         this.load.audio('button_click', 'music/click_effect-86995.mp3'); // Suara tombol home
-        this.load.audio('wrong_answer_sound', 'music/negative_beeps-6008.mp3'); // Suara tombol home
+        this.load.audio('wrong_answer_sound', 'music/negative_beeps-6008.mp3');
+        this.load.audio('true_answer_sound', 'music/correct-2-46134.mp3'); 
         this.questions.forEach(question => {
             this.load.image(question.imageKey, `assets/latin/${question.imageKey}.png`);
         });
         this.load.image('button_hapus', 'assets/button_hapus.png');
         this.load.image('button_submit_jawaban', 'assets/button_submit_jawaban.png');
         this.load.image('wrongMessage', 'assets/Frame salah.png');
+        this.load.image('trueMessage', 'assets/Frame benar.png');
         this.load.image('buttonBack', 'assets/button kembali.png');
         this.load.audio('soundBack', 'music/click_effect-86995.mp3');
+        this.load.image('akhirKuis', 'assets/Frame skor1.png');
+        this.load.audio('tepukTangan', 'music/applause-alks-ses-efekti-125030.mp3');
     }
 
     create() {
@@ -97,7 +101,11 @@ class menulisLontara extends Phaser.Scene {
 
         this.questionImage = this.add.image(750, 145, this.questions[this.currentQuestionIndex].imageKey).setScale(0.9).setOrigin(0, 0);
         this.scoreText = this.add.text((window.innerWidth/2) - 20, 65, this.score, { fontSize: '45px', color: '#fff', fontStyle: 'bold', stroke: '#000' ,strokeThickness: 1});
+
         this.wrongMessage = this.add.image(screenWidth / 2, this.scale.height / 2, 'wrongMessage').setOrigin(0.5, 0.5).setScale(0.8).setVisible(false);
+
+        this.trueMessage = this.add.image(screenWidth / 2, this.scale.height / 2, 'trueMessage').setOrigin(0.5, 0.5).setScale(0.8).setVisible(false);
+
     }
 
     resetGame() {
@@ -182,9 +190,18 @@ class menulisLontara extends Phaser.Scene {
         });
     }
 
+    showTrueMessage() {
+        this.sound.add('true_answer_sound').play();
+        this.trueMessage.setVisible(true);
+        this.time.delayedCall(1500, () => {
+            this.trueMessage.setVisible(false);
+        });
+    }
+
     checkAnswer(predictedAnswer) {
         const currentQuestion = this.questions[this.currentQuestionIndex];
         if (predictedAnswer === currentQuestion.answer) {
+            this.showTrueMessage()
             this.score += 10;
             this.scoreText.setText(this.score);
             this.usedIndices.push(this.currentQuestionIndex); // buat property baru untuk menampung index
@@ -197,11 +214,31 @@ class menulisLontara extends Phaser.Scene {
                 this.currentQuestionIndex = nextIndex;
                 this.questionImage.setTexture(this.questions[this.currentQuestionIndex].imageKey);
             } else {
+                const tepukTangan = this.sound.add('tepukTangan');
+                const akhirKuis = this.add.image(
+                    this.cameras.main.width / 2,
+                    this.cameras.main.height / 2 ,
+                    'akhirKuis',
+                ).setOrigin(0.5);
+                tepukTangan.play();
+
+                const finalScore = this.add.text(
+                    this.cameras.main.width / 2, 100,
+                    this.score, { fontSize: '60px', fill: '#fff', align: 'center' }
+                ).setOrigin(0.5, -5);
+
+                finalScore.setText(this.score);
+
+                akhirKuis.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
+                console.log('Pertanyaan selesai.');
+                console.log(this.score);
+                this.time.delayedCall(12000, () => {
+                    this.scene.start('Home');
+                });
                 alert('Anda telah menyelesaikan semua soal!');
             }
         } else {
             if(this.score != 0){
-                this.score -= 15;
                 this.scoreText.setText(this.score);
             }
             this.lives--;
@@ -210,10 +247,32 @@ class menulisLontara extends Phaser.Scene {
             }
 
             if (this.lives <= 0) {
+                const tepukTangan = this.sound.add('tepukTangan');
+                const akhirKuis = this.add.image(
+                    this.cameras.main.width / 2,
+                    this.cameras.main.height / 2 ,
+                    'akhirKuis',
+                ).setOrigin(0.5);
                 alert('Game selesai! Anda kehabisan hati.');
                 // Tambahkan logika untuk mengakhiri game atau restart
-                this.scene.start('Home');
-                this.resetGame();
+                tepukTangan.play();
+
+                const finalScore = this.add.text(
+                    this.cameras.main.width / 2, 100,
+                    this.score, { fontSize: '60px', fill: '#fff', align: 'center' }
+                ).setOrigin(0.5, -5);
+
+                finalScore.setText(this.score);
+
+                akhirKuis.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
+                console.log('Pertanyaan selesai.');
+                console.log(this.score);
+                this.time.delayedCall(12000, () => {
+                    this.scene.start('Home');
+                    this.resetGame();
+                });
+                // this.scene.start('Home');
+                // this.resetGame();
             } else {
                 this.showWrongMessage()
             }
