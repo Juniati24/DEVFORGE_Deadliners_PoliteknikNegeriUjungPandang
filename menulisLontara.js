@@ -1,112 +1,3 @@
-// import DrawingBoard from "./object/drawingBoard.js";
-// class menulisLontara extends Phaser.Scene {
-//     constructor() {
-//         super({ key: 'menulisLontara' });
-//     }
-
-//     preload() {
-//         this.load.image('menulisbg', 'assets/Frame pengenalan lontara.png');
-//     }
-
-//     create() {
-//         const menulisbg = this.add.image(0, 0, 'menulisbg').setOrigin(0, 0);
-//         this.resizeImage(menulisbg);
-
-//         // Responsif saat ukuran jendela berubah
-//         window.addEventListener('resize', () => {
-//             this.game.scale.resize(window.innerWidth, window.innerHeight);
-//             this.resizeImage(menulisbg);
-//         });
-
-//         this.drawingBoard = new DrawingBoard(this, 100, 170, 400, 300);
-//         // Menambahkan tombol "Mulai Menulis"
-//         this.startButton = this.add.text(50, 500, 'Mulai Menulis', { fontSize: '20px', fill: '#000' })
-//             .setInteractive()
-//             .on('pointerdown', () => {
-//                 this.drawingBoard.isDrawingEnabled = true;
-//             });
-
-//         // Menambahkan tombol "Hapus"
-//         this.clearButton = this.add.text(200, 500, 'Hapus', { fontSize: '20px', fill: '#000' })
-//             .setInteractive()
-//             .on('pointerdown', () => {
-//                 this.drawingBoard.clear();
-//                 this.drawingBoard.fillStyle(0xffffff, 1);
-//                 this.drawingBoard.fillRect(0, 0, this.drawingBoard.width, this.drawingBoard.height);
-//                 this.drawingBoard.strokeRect(0, 0, this.drawingBoard.width, this.drawingBoard.height);
-//             });
-
-//         // Menambahkan tombol "Tangkap Gambar"
-//         this.captureButton = this.add.text(350, 500, 'Tangkap Gambar', { fontSize: '20px', fill: '#000' })
-//             .setInteractive()
-//             .on('pointerdown', () => {
-//                 this.drawingBoard.captureCanvasImage();
-//             });
-//     }
-//     resizeImage(image) {
-//         image.setDisplaySize(window.innerWidth, window.innerHeight);
-//     }    
-
-// }
-
-// export default menulisLontara;
-
-// ------------------------dibawah ini bagus----------------------------
-
-// import DrawingBoard from "./object/drawingBoard.js";
-
-// class menulisLontara extends Phaser.Scene {
-//     constructor() {
-//         super({ key: 'menulisLontara' });
-//     }
-
-//     preload() {
-//         this.load.image('menulisbg', 'assets/Frame pengenalan lontara.png');
-//     }
-
-//     create() {
-//         const menulisbg = this.add.image(0, 0, 'menulisbg').setOrigin(0, 0);
-//         this.resizeImage(menulisbg);
-
-//         window.addEventListener('resize', () => {
-//             this.game.scale.resize(window.innerWidth, window.innerHeight);
-//             this.resizeImage(menulisbg);
-//         });
-
-//         this.drawingBoard = new DrawingBoard(this, 100, 170, 400, 300);
-
-//         this.startButton = this.add.text(50, 500, 'Mulai Menulis', { fontSize: '20px', fill: '#000' })
-//             .setInteractive()
-//             .on('pointerdown', () => {
-//                 this.drawingBoard.isDrawingEnabled = true;
-//             });
-
-//         this.clearButton = this.add.text(200, 500, 'Hapus', { fontSize: '20px', fill: '#000' })
-//             .setInteractive()
-//             .on('pointerdown', () => {
-//                 this.drawingBoard.clear();
-//                 this.drawingBoard.fillStyle(0xffffff, 1);
-//                 this.drawingBoard.fillRect(0, 0, this.drawingBoard.width, this.drawingBoard.height);
-//                 this.drawingBoard.strokeRect(0, 0, this.drawingBoard.width, this.drawingBoard.height);
-//                 this.drawingBoard.lineStyle(10, 0x000000); // Pastikan ketebalan garis tetap 10
-//             });
-
-//         this.captureButton = this.add.text(350, 500, 'Tangkap Gambar', { fontSize: '20px', fill: '#000' })
-//             .setInteractive()
-//             .on('pointerdown', () => {
-//                 this.drawingBoard.captureCanvasImage();
-//             });
-//     }
-
-//     resizeImage(image) {
-//         image.setDisplaySize(window.innerWidth, window.innerHeight);
-//     }
-// }
-
-// export default menulisLontara;
-
-// ------------------------diatas ini bagus
-
 import DrawingBoard from "./object/drawingBoard.js";
 
 class menulisLontara extends Phaser.Scene {
@@ -155,17 +46,30 @@ class menulisLontara extends Phaser.Scene {
         this.load.image('button_hapus', 'assets/button_hapus.png');
         this.load.image('button_submit_jawaban', 'assets/button_submit_jawaban.png');
         this.load.image('wrongMessage', 'assets/Frame salah.png');
-        console.log(this.questions);
+        this.load.image('buttonBack', 'assets/button kembali.png');
+        this.load.audio('soundBack', 'music/click_effect-86995.mp3');
     }
 
     create() {
         const menulisbg = this.add.image(0, 0, 'menulisbg').setOrigin(0, 0);
         const button_click = this.sound.add('button_click');
 
+        const soundBack = this.sound.add('soundBack');
+
+        // Tombol kembali
+        const buttonBack = this.createButtonBack(80, 40, 'buttonBack',     soundBack, () => {
+            if (this.questionImage) {
+                this.questionImage.destroy();
+                this.questionImage = null;
+            }
+            this.scene.start('Bermain');
+        });
+
         this.resizeImage(menulisbg);
         window.addEventListener('resize', () => {
             this.game.scale.resize(window.innerWidth, window.innerHeight);
             this.resizeImage(menulisbg);
+            buttonBack.setPosition(80, 80);
         });
 
         this.hearts = [];
@@ -242,6 +146,29 @@ class menulisLontara extends Phaser.Scene {
 
         button.on('pointerout', () => {
             button.setScale(0.60); // Kembalikan ukuran tombol saat kursor keluar dari tombol
+        });
+
+        return button;
+    }
+
+    createButtonBack(x, y, texture, sound, callback) {
+        const button = this.add.image(x, y, texture).setInteractive();
+        button.setOrigin(0.5, 0.5);
+        button.setScale(0.50);
+
+        // Efek visual dan suara untuk tombol saat ditekan
+        button.on('pointerdown', () => {
+            sound.play();
+            button.setScale(0.35); // Kecilkan tombol saat ditekan
+        });
+
+        button.on('pointerup', () => {
+            button.setScale(0.50); // Kembalikan ukuran tombol saat dilepas
+            callback(); // Panggil callback saat tombol dilepas
+        });
+
+        button.on('pointerout', () => {
+            button.setScale(0.50); // Kembalikan ukuran tombol saat kursor keluar dari tombol
         });
 
         return button;

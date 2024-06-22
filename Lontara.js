@@ -2,7 +2,7 @@ class Lontara extends Phaser.Scene {
     constructor() {
         super({ key: 'Lontara' });
         this.currentContentIndex = 0;
-        this.contents = ['LontaraContent1', 'LontaraContent2', 'LontaraContent3', 'LontaraContent5', 'LontaraContent4']; // Daftar konten
+        this.contents = ['LontaraContent1', 'LontaraContent2', 'LontaraContent3', 'LontaraContent4', 'LontaraContent5']; // Daftar konten
     }
 
     preload() {
@@ -26,7 +26,7 @@ class Lontara extends Phaser.Scene {
         // Suara tombol
         const soundBack = this.sound.add('soundBack');
 
-        // menu belajar
+        // Menu belajar
         this.currentContent = this.add.image(window.innerWidth / 2, window.innerHeight / 2, this.contents[this.currentContentIndex]).setInteractive();
         this.currentContent.setOrigin(0.5, 0.5);
         this.resizeContent(this.currentContent);
@@ -37,12 +37,12 @@ class Lontara extends Phaser.Scene {
         });
 
         // Tombol geser ke kiri
-        const buttonKiri = this.createButton(window.innerWidth / 2 - 500, window.innerHeight / 2, 'buttonKiri', soundBack, () => {
+        const buttonKiri = this.createButton(window.innerWidth * 0.2, window.innerHeight / 2, 'buttonKiri', soundBack, () => {
             this.changeContent(-1);
         });
 
         // Tombol geser ke kanan
-        const buttonKanan = this.createButton(window.innerWidth / 2 + 500, window.innerHeight / 2, 'buttonKanan', soundBack, () => {
+        const buttonKanan = this.createButton(window.innerWidth * 0.8, window.innerHeight / 2, 'buttonKanan', soundBack, () => {
             this.changeContent(1);
         });
 
@@ -51,10 +51,10 @@ class Lontara extends Phaser.Scene {
             this.game.scale.resize(window.innerWidth, window.innerHeight);
             this.resizeImage(Lontaratbg);
             this.resizeContent(this.currentContent);
-            buttonBack.setPosition(80, 80);
+            buttonBack.setPosition(80, 40);
 
-            buttonKiri.setPosition(window.innerWidth / 2 - 500, window.innerHeight / 2);
-            buttonKanan.setPosition(window.innerWidth / 2 + 500, window.innerHeight / 2);
+            buttonKiri.setPosition(window.innerWidth * 0.2, window.innerHeight / 2);
+            buttonKanan.setPosition(window.innerWidth * 0.8, window.innerHeight / 2);
         });
     }
 
@@ -92,11 +92,6 @@ class Lontara extends Phaser.Scene {
         });
 
         return button;
-    }
-
-    resizeButton(button, offsetY = 0) {
-        // Set posisi tombol kembali di tengah layar dengan offset Y yang diberikan
-        button.setPosition(window.innerWidth / 2, window.innerHeight / 2 + offsetY);
     }
 
     changeContent(direction) {

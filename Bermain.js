@@ -17,7 +17,7 @@ class Bermain extends Phaser.Scene {
         const bermainbg = this.add.image(0, 0, 'bermainbg').setOrigin(0, 0);
         this.resizeImage(bermainbg);
 
-         // suara tombol home
+        // suara tombol home
         const soundHome = this.sound.add('soundHome');
 
         // suara tombol
@@ -33,38 +33,30 @@ class Bermain extends Phaser.Scene {
         const button1X = centerX - buttonSpacing;
         const button2X = centerX + buttonSpacing;
 
-        const bermainButton1 = this.createButton(button1X, centerY, 'bermainButton1', buttonSound, () => {
+        // Assign buttons to class properties
+        this.bermainButton1 = this.createButton(button1X, centerY, 'bermainButton1', buttonSound, () => {
             this.scene.start('Kuis');
         });
 
-        const bermainButton2 = this.createButton(button2X, centerY, 'bermainButton2', buttonSound, () => {
+        this.bermainButton2 = this.createButton(button2X, centerY, 'bermainButton2', buttonSound, () => {
             this.scene.start('menulisLontara');
         });
 
         // tombol home
         const buttonMargin = 60; 
-        const buttonHome = this.createButton(buttonMargin, buttonMargin, 'buttonHome', soundHome, () => {
-            buttonHome.setOrigin(0, 0); 
+        this.buttonHome = this.createButton(buttonMargin, buttonMargin, 'buttonHome', soundHome, () => {
+            this.buttonHome.setOrigin(0, 0); 
             this.scene.start('Home');
         });
+
+        this.updateButtonPositions();
 
         // responsif saat ukuran jendela berubah
         window.addEventListener('resize', () => {
             this.game.scale.resize(window.innerWidth, window.innerHeight);
             this.resizeImage(bermainbg);
-            this.resizeButton(buttonHome);
-            this.resizeButton(bermainButton1);
-            this.resizeButton(bermainButton2);
-
-            // Update posisi tombol saat jendela diubah ukurannya
-            const newCenterX = window.innerWidth / 2;
-            const newCenterY = window.innerHeight / 2;
-
-            const newButton1X = newCenterX - buttonSpacing;
-            const newButton2X = newCenterX + buttonSpacing;
-
-            bermainButton1.setPosition(newButton1X, newCenterY);
-            bermainButton2.setPosition(newButton2X, newCenterY);
+            this.resizeButton(this.buttonHome);
+            this.updateButtonPositions();
         });
     }
 
@@ -98,6 +90,28 @@ class Bermain extends Phaser.Scene {
     resizeButton(button, offsetY = 0) {
         // Set posisi tombol kembali di tengah layar dengan offset Y yang diberikan
         button.setPosition(window.innerWidth / 2, window.innerHeight / 2 + offsetY);
+    }
+
+    isMobile() {
+        return window.innerWidth <= 800;
+    }
+
+    updateButtonPositions() {
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+
+        if (this.isMobile()) {
+            const button1Y = centerY - 100;
+            const button2Y = centerY + 100;
+            this.bermainButton1.setPosition(centerX, button1Y);
+            this.bermainButton2.setPosition(centerX, button2Y);
+        } else {
+            const buttonSpacing = 200;
+            const button1X = centerX - buttonSpacing;
+            const button2X = centerX + buttonSpacing;
+            this.bermainButton1.setPosition(button1X, centerY);
+            this.bermainButton2.setPosition(button2X, centerY);
+        }
     }
 }
 

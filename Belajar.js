@@ -10,6 +10,7 @@ class Belajar extends Phaser.Scene {
         this.load.image('belajarButton2', 'assets/button lontara.png');
         this.load.image('belajarButton3', 'assets/button alat musik.png');
         this.load.image('belajarButton4', 'assets/button rumah adat.png');
+        this.load.image('belajarButton5', 'assets/button menulis.png');
         this.load.audio('soundHome', 'music/click_effect-86995.mp3'); // Suara tombol home
         this.load.audio('buttonSound', 'music/item-pick-up-38258.mp3'); // Suara tombol
     }
@@ -19,7 +20,7 @@ class Belajar extends Phaser.Scene {
         const belajarbg = this.add.image(0, 0, 'belajarbg').setOrigin(0, 0);
         this.resizeImage(belajarbg);
 
-         // suara tombol home
+        // suara tombol home
         const soundHome = this.sound.add('soundHome');
 
         // suara tombol
@@ -44,44 +45,45 @@ class Belajar extends Phaser.Scene {
         const button4X = window.innerWidth / 2 + 330; // Geser 330 piksel ke kanan dari tengah
         const button4Y = button3Y + buttonVerticalSpacing; 
 
-        const belajarButton1 = this.createButton(button1X, button1Y, 'belajarButton1', buttonSound, () => {
-        this.scene.start('bajuAdat');
-    });
+        // Koordinat posisi untuk sedikit bergeser ke kanan dari tengah
+        const button5X = window.innerWidth / 2 ; // Geser 330 piksel ke kanan dari tengah
+        const button5Y = button4Y + -100; 
 
-        const belajarButton2 = this.createButton(button2X, button2Y, 'belajarButton2', buttonSound, () => {
-        this.scene.start('Lontara');
-    });
+        // Assign buttons to class properties
+        this.belajarButton1 = this.createButton(button1X, button1Y, 'belajarButton1', buttonSound, () => {
+            this.scene.start('bajuAdat');
+        });
 
-        const belajarButton3 = this.createButton(button3X, button3Y, 'belajarButton3', buttonSound, () => {
-        this.scene.start('alatMusik');
-    });
+        this.belajarButton2 = this.createButton(button2X, button2Y, 'belajarButton2', buttonSound, () => {
+            this.scene.start('Lontara');
+        });
 
-        const belajarButton4 = this.createButton(button4X, button4Y, 'belajarButton4', buttonSound, () => {
-        this.scene.start('rumahAdat');
-    });
+        this.belajarButton3 = this.createButton(button3X, button3Y, 'belajarButton3', buttonSound, () => {
+            this.scene.start('alatMusik');
+        });
+
+        this.belajarButton4 = this.createButton(button4X, button4Y, 'belajarButton4', buttonSound, () => {
+            this.scene.start('rumahAdat');
+        });
+
+        this.belajarButton5 = this.createButton(button5X, button5Y, 'belajarButton5', buttonSound, () => {
+            this.scene.start('latihanMenulisLontara');
+        });
 
         // tombol home
         const buttonMargin = 60; 
-        const buttonHome = this.createButton(buttonMargin, buttonMargin, 'buttonHome', soundHome, () => {
-        buttonHome.setOrigin(0, 0); 
-        this.scene.start('Home');
-     });
+        this.buttonHome = this.createButton(buttonMargin, buttonMargin, 'buttonHome', soundHome, () => {
+            this.buttonHome.setOrigin(0, 0); 
+            this.scene.start('Home');
+        });
 
-     // responsif saat ukuran jendela berubah
+        this.updateButtonPositions();
+
+        // responsif saat ukuran jendela berubah
         window.addEventListener('resize', () => {
             this.game.scale.resize(window.innerWidth, window.innerHeight);
             this.resizeImage(belajarbg);
-            this.resizeButton(buttonHome);
-            this.resizeButton(belajarButton1);
-            this.resizeButton(belajarButton2);
-            this.resizeButton(belajarButton3);
-            this.resizeButton(belajarButton4);
-
-        // Update posisi tombol saat jendela diubah ukurannya
-        belajarButton1.setPosition(window.innerWidth / 2 - 330, window.innerHeight / 2 - buttonVerticalSpacing / 2);
-        belajarButton2.setPosition(window.innerWidth / 2 - 330, window.innerHeight / 2 + buttonVerticalSpacing / 2);
-        belajarButton3.setPosition(window.innerWidth / 2 + 330, window.innerHeight / 2 - buttonVerticalSpacing / 2);
-        belajarButton4.setPosition(window.innerWidth / 2 + 330, window.innerHeight / 2 + buttonVerticalSpacing / 2);
+            this.updateButtonPositions();
         });
     }
 
@@ -112,9 +114,30 @@ class Belajar extends Phaser.Scene {
         return button;
     }
 
-    resizeButton(button, offsetY = 0) {
-        // Set posisi tombol kembali di tengah layar dengan offset Y yang diberikan
-        button.setPosition(window.innerWidth / 2, window.innerHeight / 2 + offsetY);
+    isMobile(){
+        return window.innerWidth <= 800;
+    }
+
+    updateButtonPositions() {
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+
+        if (this.isMobile()) {
+            // Adjust button positions for mobile (vertical layout)
+            const buttonVerticalSpacing = 150; // Adjust the spacing for mobile view
+            this.belajarButton1.setPosition(centerX, centerY - 1.5 * buttonVerticalSpacing);
+            this.belajarButton2.setPosition(centerX, centerY - 0.5 * buttonVerticalSpacing);
+            this.belajarButton3.setPosition(centerX, centerY + 0.5 * buttonVerticalSpacing);
+            this.belajarButton4.setPosition(centerX, centerY + 1.5 * buttonVerticalSpacing);
+        } else {
+            // Adjust button positions for desktop (horizontal layout)
+            const buttonHorizontalSpacing = 330; // Adjust the spacing for desktop view
+            const buttonVerticalSpacing = 225; // Original spacing
+            this.belajarButton1.setPosition(centerX - buttonHorizontalSpacing, centerY - buttonVerticalSpacing / 2);
+            this.belajarButton2.setPosition(centerX - buttonHorizontalSpacing, centerY + buttonVerticalSpacing / 2);
+            this.belajarButton3.setPosition(centerX + buttonHorizontalSpacing, centerY - buttonVerticalSpacing / 2);
+            this.belajarButton4.setPosition(centerX + buttonHorizontalSpacing, centerY + buttonVerticalSpacing / 2);
+        }
     }
 }
 

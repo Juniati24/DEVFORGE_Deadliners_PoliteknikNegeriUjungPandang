@@ -8,6 +8,7 @@ import Lontara from './Lontara.js';
 import Bermain from './Bermain.js'; 
 import Kuis from './Kuis.js'; 
 import menulisLontara from './menulisLontara.js'; 
+import latihanMenulisLontara from './latihanMenulisLontara.js'; 
 import musikBg from './musikBg.js'; 
 
 const config = {
@@ -18,7 +19,7 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [ musikBg, Home, Tentang, Belajar, bajuAdat, alatMusik, rumahAdat, Lontara, Bermain, Kuis, menulisLontara],
+    scene: [ musikBg, Home, Tentang, Belajar, bajuAdat, alatMusik, rumahAdat, Lontara, Bermain, Kuis, menulisLontara, latihanMenulisLontara],
     parent: 'gameContainer',
     dom: {
         createContainer: true
