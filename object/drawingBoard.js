@@ -178,7 +178,6 @@ class DrawingBoard extends Phaser.GameObjects.Graphics {
         this.width = width;
         this.height = height;
         this.isDrawing = false;
-        this.isDrawingEnabled = false;
         this.lineColor = 0x000000; // Warna garis (hitam)
         this.lineWidth = 8; // Ketebalan garis
         this.lineAlpha = 1; // Opasitas garis
@@ -199,7 +198,7 @@ class DrawingBoard extends Phaser.GameObjects.Graphics {
     }
 
     startDrawing(pointer) {
-        if (this.isPointerInBounds(pointer) && this.isDrawingEnabled) {
+        if (this.isPointerInBounds(pointer)) {
             this.isDrawing = true;
             this.lineStyle(this.lineWidth, this.lineColor, this.lineAlpha, 0, false, this.lineCap);
             this.moveTo(pointer.x - this.x, pointer.y - this.y);
