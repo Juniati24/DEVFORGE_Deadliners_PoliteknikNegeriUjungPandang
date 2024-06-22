@@ -10,6 +10,7 @@ class Belajar extends Phaser.Scene {
         this.load.image('belajarButton2', 'assets/button lontara.png');
         this.load.image('belajarButton3', 'assets/button alat musik.png');
         this.load.image('belajarButton4', 'assets/button rumah adat.png');
+        this.load.image('belajarButton5', 'assets/button menulis.png');
         this.load.audio('soundHome', 'music/click_effect-86995.mp3'); // Suara tombol home
         this.load.audio('buttonSound', 'music/item-pick-up-38258.mp3'); // Suara tombol
     }
@@ -44,6 +45,10 @@ class Belajar extends Phaser.Scene {
         const button4X = window.innerWidth / 2 + 330; // Geser 330 piksel ke kanan dari tengah
         const button4Y = button3Y + buttonVerticalSpacing; 
 
+        // Koordinat posisi untuk sedikit bergeser ke kanan dari tengah
+        const button5X = window.innerWidth / 2 ; // Geser 330 piksel ke kanan dari tengah
+        const button5Y = button4Y + -100; 
+
         // Assign buttons to class properties
         this.belajarButton1 = this.createButton(button1X, button1Y, 'belajarButton1', buttonSound, () => {
             this.scene.start('bajuAdat');
@@ -59,6 +64,10 @@ class Belajar extends Phaser.Scene {
 
         this.belajarButton4 = this.createButton(button4X, button4Y, 'belajarButton4', buttonSound, () => {
             this.scene.start('rumahAdat');
+        });
+
+        this.belajarButton5 = this.createButton(button5X, button5Y, 'belajarButton5', buttonSound, () => {
+            this.scene.start('latihanMenulisLontara');
         });
 
         // tombol home

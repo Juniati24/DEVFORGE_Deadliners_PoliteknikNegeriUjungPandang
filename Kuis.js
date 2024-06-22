@@ -12,15 +12,24 @@ class Kuis extends Phaser.Scene {
         this.load.audio('jawabanSalah', 'music/negative_beeps-6008.mp3');
         this.load.audio('jawabanBenar', 'music/correct-2-46134.mp3');
         this.load.audio('tepukTangan', 'music/applause-alks-ses-efekti-125030.mp3');
+        this.load.image('buttonBack', 'assets/button kembali.png');
+        this.load.audio('soundBack', 'music/click_effect-86995.mp3');
         this.load.json('soal', 'soal.json'); // file json
     }
 
     create() {
         const kuisbg = this.add.image(0, 0, 'kuisbg').setOrigin(0, 0);
         this.resizeImage(kuisbg);
+        
+        const soundBack = this.sound.add('soundBack');
 
         // mengambil data json
         this.questions = this.cache.json.get('soal');
+
+         // Tombol kembali
+         const buttonBack = this.createButton(80, 40, 'buttonBack', soundBack, () => {
+            this.scene.start('Bermain');
+        });
 
         // Menampilkan skor 
         this.scoreText = this.add.text(
@@ -37,11 +46,35 @@ class Kuis extends Phaser.Scene {
             this.game.scale.resize(window.innerWidth, window.innerHeight);
             this.resizeImage(kuisbg);
             this.scoreText.setPosition(this.cameras.main.width / 2, 50);
+            buttonBack.setPosition(80, 80);
         });
     }
 
     resizeImage(image) {
         image.setDisplaySize(window.innerWidth, window.innerHeight);
+    }
+
+    createButton(x, y, texture, sound, callback) {
+        const button = this.add.image(x, y, texture).setInteractive();
+        button.setOrigin(0.5, 0.5);
+        button.setScale(0.50);
+
+        // Efek visual dan suara untuk tombol saat ditekan
+        button.on('pointerdown', () => {
+            sound.play();
+            button.setScale(0.35); // Kecilkan tombol saat ditekan
+        });
+
+        button.on('pointerup', () => {
+            button.setScale(0.50); // Kembalikan ukuran tombol saat dilepas
+            callback(); // Panggil callback saat tombol dilepas
+        });
+
+        button.on('pointerout', () => {
+            button.setScale(0.50); // Kembalikan ukuran tombol saat kursor keluar dari tombol
+        });
+
+        return button;
     }
 
     showQuestion(index) {
