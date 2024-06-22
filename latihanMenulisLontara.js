@@ -3,62 +3,61 @@ import DrawingBoard from "./object/drawingBoard.js";
 class latihanMenulisLontara extends Phaser.Scene {
     constructor() {
         super({ key: 'latihanMenulisLontara' });
-        this.questions = [
-            { imageKey: 'a', answer: 'a' },
-            { imageKey: 'ba', answer: 'ba' },
-            { imageKey: 'ca', answer: 'ca' },
-            { imageKey: 'da', answer: 'da' },
-            { imageKey: 'ga', answer: 'ga' },
-            { imageKey: 'ha', answer: 'ha' },
-            { imageKey: 'ja', answer: 'ja' },
-            { imageKey: 'ka', answer: 'ka' },
-            { imageKey: 'la', answer: 'la' },
-            { imageKey: 'ma', answer: 'ma' },
-            { imageKey: 'na', answer: 'na' },
-            { imageKey: 'mpa', answer: 'mpa' },
-            { imageKey: 'nca', answer: 'nca' },
-            { imageKey: 'nga', answer: 'nga' },
-            { imageKey: 'ngka', answer: 'ngka' },
-            { imageKey: 'nra', answer: 'nra' },
-            { imageKey: 'nya', answer: 'nya' },
-            { imageKey: 'pa', answer: 'pa' },
-            { imageKey: 'ra', answer: 'ra' },
-            { imageKey: 'sa', answer: 'sa' },
-            { imageKey: 'ta', answer: 'ta' },
-            { imageKey: 'wa', answer: 'wa' },
-            { imageKey: 'ya', answer: 'ya' },
+        this.training_questions = [
+            { imageKey: 'lat_a', answer: 'a' },
+            { imageKey: 'lat_ba', answer: 'ba' },
+            { imageKey: 'lat_ca', answer: 'ca' },
+            { imageKey: 'lat_da', answer: 'da' },
+            { imageKey: 'lat_ga', answer: 'ga' },
+            { imageKey: 'lat_ha', answer: 'ha' },
+            { imageKey: 'lat_ja', answer: 'ja' },
+            { imageKey: 'lat_ka', answer: 'ka' },
+            { imageKey: 'lat_la', answer: 'la' },
+            { imageKey: 'lat_ma', answer: 'ma' },
+            { imageKey: 'lat_na', answer: 'na' },
+            { imageKey: 'lat_mpa', answer: 'mpa' },
+            { imageKey: 'lat_nca', answer: 'nca' },
+            { imageKey: 'lat_nga', answer: 'nga' },
+            { imageKey: 'lat_ngka', answer: 'ngka' },
+            { imageKey: 'lat_nra', answer: 'nra' },
+            { imageKey: 'lat_nya', answer: 'nya' },
+            { imageKey: 'lat_pa', answer: 'pa' },
+            { imageKey: 'lat_ra', answer: 'ra' },
+            { imageKey: 'lat_sa', answer: 'sa' },
+            { imageKey: 'lat_ta', answer: 'ta' },
+            { imageKey: 'lat_wa', answer: 'wa' },
+            { imageKey: 'lat_ya', answer: 'ya' },
         ];
         this.usedIndices = [];
-        this.currentQuestionIndex = Math.floor(Math.random() * this.questions.length);
+        this.currentQuestionIndex = Math.floor(Math.random() * this.training_questions.length);
     }
 
     preload() {
-        // this.load.image('heart', 'assets/heart.png')
-        this.load.image('menulisbg', 'assets/bg.png');
+        this.load.image('latihanmenulisbg', 'assets/bg2.png');
         this.load.image('buttonHome', 'assets/button kembali.png');
         this.load.audio('button_click', 'music/click_effect-86995.mp3'); // Suara tombol home
         this.load.audio('soundHome', 'music/click_effect-86995.mp3');
         this.load.audio('wrong_answer_sound', 'music/negative_beeps-6008.mp3');
         this.load.audio('true_answer_sound', 'music/correct-2-46134.mp3');
-        this.questions.forEach(question => {
+        this.training_questions.forEach(question => {
             this.load.image(question.imageKey, `assets/menulis/${question.imageKey}.png`);
         });
         this.load.image('button_hapus', 'assets/button_hapus.png');
         this.load.image('button_submit_jawaban', 'assets/button_submit_jawaban.png');
         this.load.image('wrongMessage', 'assets/Frame salah.png');
         this.load.image('trueMessage', 'assets/Frame benar.png');
-        console.log(this.questions);
+        console.log(this.training_questions);
     }
 
     create() {
-        const menulisbg = this.add.image(0, 0, 'menulisbg').setOrigin(0, 0);
+        const latihanmenulisbg = this.add.image(0, 0, 'latihanmenulisbg').setOrigin(0, 0);
         const button_click = this.sound.add('button_click');
         const soundHome = this.sound.add('soundHome');
 
-        this.resizeImage(menulisbg);
+        this.resizeImage(latihanmenulisbg);
         window.addEventListener('resize', () => {
             this.game.scale.resize(window.innerWidth, window.innerHeight);
-            this.resizeImage(menulisbg);
+            this.resizeImage(latihanmenulisbg);
         });
 
         this.drawingBoardX = 100
@@ -76,7 +75,7 @@ class latihanMenulisLontara extends Phaser.Scene {
         // Menambahkan latar belakang putih dan gambar soal
         this.questionBackground = this.add.graphics();
 
-        this.questionImage = this.add.image(750, 145, this.questions[this.currentQuestionIndex].imageKey).setScale(0.9).setOrigin(0, 0);
+        this.questionImage = this.add.image(750, 145, this.training_questions[this.currentQuestionIndex].imageKey).setScale(0.9).setOrigin(0, 0);
 
         this.wrongMessage = this.add.image(screenWidth / 2, this.scale.height / 2, 'wrongMessage').setOrigin(0.5, 0.5).setScale(0.8).setVisible(false);
 
@@ -142,17 +141,17 @@ class latihanMenulisLontara extends Phaser.Scene {
     }
 
     checkAnswer(predictedAnswer) {
-        const currentQuestion = this.questions[this.currentQuestionIndex];
+        const currentQuestion = this.training_questions[this.currentQuestionIndex];
         if (predictedAnswer === currentQuestion.answer) {
             this.usedIndices.push(this.currentQuestionIndex); // buat property baru untuk menampung index
             this.showTrueMessage()
-            if (this.usedIndices.length < this.questions.length) {
+            if (this.usedIndices.length < this.training_questions.length) {
                 let nextIndex;
                 do {
-                    nextIndex = Math.floor(Math.random() * this.questions.length);
+                    nextIndex = Math.floor(Math.random() * this.training_questions.length);
                 } while (this.usedIndices.includes(nextIndex))
                 this.currentQuestionIndex = nextIndex;
-                this.questionImage.setTexture(this.questions[this.currentQuestionIndex].imageKey);
+                this.questionImage.setTexture(this.training_questions[this.currentQuestionIndex].imageKey);
             } else {
                 alert('Anda telah menyelesaikan semua soal!');
             }

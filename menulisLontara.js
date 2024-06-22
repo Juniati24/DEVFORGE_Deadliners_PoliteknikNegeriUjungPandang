@@ -48,7 +48,6 @@ class menulisLontara extends Phaser.Scene {
         this.load.image('wrongMessage', 'assets/Frame salah.png');
         this.load.image('buttonBack', 'assets/button kembali.png');
         this.load.audio('soundBack', 'music/click_effect-86995.mp3');
-        console.log(this.questions);
     }
 
     create() {
@@ -57,8 +56,12 @@ class menulisLontara extends Phaser.Scene {
 
         const soundBack = this.sound.add('soundBack');
 
-         // Tombol kembali
+        // Tombol kembali
         const buttonBack = this.createButtonBack(80, 40, 'buttonBack',     soundBack, () => {
+            if (this.questionImage) {
+                this.questionImage.destroy();
+                this.questionImage = null;
+            }
             this.scene.start('Bermain');
         });
 
