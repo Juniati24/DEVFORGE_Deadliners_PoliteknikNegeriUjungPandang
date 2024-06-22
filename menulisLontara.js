@@ -113,13 +113,34 @@ class menulisLontara extends Phaser.Scene {
     constructor() {
         super({ key: 'menulisLontara' });
         this.questions = [
-            { imageKey: 'ka', answer: 'ka' },
             { imageKey: 'a', answer: 'a' },
+            { imageKey: 'ba', answer: 'ba' },
+            { imageKey: 'ca', answer: 'ca' },
+            { imageKey: 'da', answer: 'da' },
+            { imageKey: 'ga', answer: 'ga' },
+            { imageKey: 'ha', answer: 'ha' },
+            { imageKey: 'ja', answer: 'ja' },
+            { imageKey: 'ka', answer: 'ka' },
+            { imageKey: 'la', answer: 'la' },
+            { imageKey: 'ma', answer: 'ma' },
+            { imageKey: 'na', answer: 'na' },
             { imageKey: 'mpa', answer: 'mpa' },
+            { imageKey: 'nca', answer: 'nca' },
+            { imageKey: 'nga', answer: 'nga' },
+            { imageKey: 'ngka', answer: 'ngka' },
+            { imageKey: 'nra', answer: 'nra' },
+            { imageKey: 'nya', answer: 'nya' },
+            { imageKey: 'pa', answer: 'pa' },
+            { imageKey: 'ra', answer: 'ra' },
+            { imageKey: 'sa', answer: 'sa' },
+            { imageKey: 'ta', answer: 'ta' },
+            { imageKey: 'wa', answer: 'wa' },
+            { imageKey: 'ya', answer: 'ya' },
             // Tambahkan soal lainnya
         ];
-        this.currentQuestionIndex = 0;
         this.score = 0;
+        this.usedIndices = [];
+        this.currentQuestionIndex = Math.floor(Math.random() * this.questions.length);
     }
 
     preload() {
@@ -127,6 +148,7 @@ class menulisLontara extends Phaser.Scene {
         this.questions.forEach(question => {
             this.load.image(question.imageKey, `assets/lontara/${question.imageKey}.png`);
         });
+        console.log(this.questions);
     }
 
     create() {
@@ -149,11 +171,7 @@ class menulisLontara extends Phaser.Scene {
         this.clearButton = this.add.text(200, 500, 'Hapus', { fontSize: '20px', fill: '#000' })
             .setInteractive()
             .on('pointerdown', () => {
-                this.drawingBoard.clear();
-                this.drawingBoard.fillStyle(0xffffff, 1);
-                this.drawingBoard.fillRect(0, 0, this.drawingBoard.width, this.drawingBoard.height);
-                this.drawingBoard.strokeRect(0, 0, this.drawingBoard.width, this.drawingBoard.height);
-                this.drawingBoard.lineStyle(10, 0x000000); // Pastikan ketebalan garis tetap 10
+                this.clearBoard()
             });
 
         this.captureButton = this.add.text(350, 500, 'Tangkap Gambar', { fontSize: '20px', fill: '#000' })
@@ -175,20 +193,40 @@ class menulisLontara extends Phaser.Scene {
         image.setDisplaySize(window.innerWidth, window.innerHeight);
     }
 
+    clearBoard(){
+        this.drawingBoard.clear();
+        this.drawingBoard.fillStyle(0xffffff, 1);
+        this.drawingBoard.fillRect(0, 0, this.drawingBoard.width, this.drawingBoard.height);
+        this.drawingBoard.strokeRect(0, 0, this.drawingBoard.width, this.drawingBoard.height);
+        this.drawingBoard.lineStyle(10, 0x000000); // Pastikan ketebalan garis tetap 10
+    }
+
     checkAnswer(predictedAnswer) {
         const currentQuestion = this.questions[this.currentQuestionIndex];
         if (predictedAnswer === currentQuestion.answer) {
             this.score += 10;
             this.scoreText.setText(`Skor: ${this.score}`);
-            this.currentQuestionIndex++;
-            if (this.currentQuestionIndex < this.questions.length) {
+            this.usedIndices.push(this.currentQuestionIndex); // buat property baru untuk menampung index
+          
+            if (this.usedIndices.length < this.questions.length) {
+                let nextIndex;
+                do {
+                    nextIndex = Math.floor(Math.random() * this.questions.length);
+                } while (this.usedIndices.includes(nextIndex))
+                this.currentQuestionIndex = nextIndex;
                 this.questionImage.setTexture(this.questions[this.currentQuestionIndex].imageKey);
             } else {
                 alert('Anda telah menyelesaikan semua soal!');
             }
         } else {
-            alert('Jawaban salah, coba lagi.');
+            if(this.score != 0){
+                this.score -= 15;
+                this.scoreText.setText(`Skor: ${this.score}`);
+                alert('Jawaban salah, coba lagi.');
+
+            }
         }
+        this.clearBoard()
     }
 }
 
