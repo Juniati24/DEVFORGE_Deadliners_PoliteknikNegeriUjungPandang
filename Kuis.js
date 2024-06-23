@@ -84,7 +84,7 @@ class Kuis extends Phaser.Scene {
         const questionText = this.add.text(
             this.cameras.main.width / 2,
             this.cameras.main.height / 2.5,
-            questionData.question, { fontSize: '32px', fill: '#fff', align: 'center' }
+            questionData.question, { fontSize: '24px', fill: '#fff', align: 'center', wordWrap: { width: 700 }}
         ).setOrigin(0.5, 0.5);
 
         // Input untuk jawaban

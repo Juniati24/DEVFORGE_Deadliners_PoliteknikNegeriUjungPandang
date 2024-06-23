@@ -238,6 +238,12 @@ class menulisLontara extends Phaser.Scene {
                 alert('Anda telah menyelesaikan semua soal!');
             }
         } else {
+            let nextIndex;
+                do {
+                    nextIndex = Math.floor(Math.random() * this.questions.length);
+                } while (this.usedIndices.includes(nextIndex))
+                this.currentQuestionIndex = nextIndex;
+                this.questionImage.setTexture(this.questions[this.currentQuestionIndex].imageKey);
             if(this.score != 0){
                 this.scoreText.setText(this.score);
             }
