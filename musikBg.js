@@ -4,7 +4,7 @@ class musikBg extends Phaser.Scene {
     }
 
     preload() {
-        this.load.audio('backgroundMusic', 'music/ALOSI RIPOLO DUA - COVER INSTRUMEN LAGU BUGIS SANTAI LAGU JALAN-JALAN.mp3');
+        this.load.audio('backgroundMusic', 'music/ALOSI_RIPOLO_DUA_COVER_INSTRUMEN_LAGU_BUGIS_SANTAI_LAGU_JALAN-JALAN.mp3');
     }
 
     create() {

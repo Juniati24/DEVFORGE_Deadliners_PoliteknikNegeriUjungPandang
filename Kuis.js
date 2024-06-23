@@ -5,14 +5,14 @@ class Kuis extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('kuisbg', 'assets/Frame quiz.png');
-        this.load.image('benar', 'assets/Frame benar.png');
-        this.load.image('salah', 'assets/Frame salah.png');
-        this.load.image('akhirKuis', 'assets/Frame skor1.png');
+        this.load.image('kuisbg', 'assets/Frame_quiz.png');
+        this.load.image('benar', 'assets/Frame_benar.png');
+        this.load.image('salah', 'assets/Frame_salah.png');
+        this.load.image('akhirKuis', 'assets/Frame_skor1.png');
         this.load.audio('jawabanSalah', 'music/negative_beeps-6008.mp3');
         this.load.audio('jawabanBenar', 'music/correct-2-46134.mp3');
         this.load.audio('tepukTangan', 'music/applause-alks-ses-efekti-125030.mp3');
-        this.load.image('buttonBack', 'assets/button kembali.png');
+        this.load.image('buttonBack', 'assets/button_kembali.png');
         this.load.audio('soundBack', 'music/click_effect-86995.mp3');
         this.load.json('soal', 'soal.json'); // file json
     }

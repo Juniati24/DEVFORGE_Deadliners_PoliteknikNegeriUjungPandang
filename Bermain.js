@@ -5,9 +5,9 @@ class Bermain extends Phaser.Scene {
 
     preload() {
         this.load.image('bermainbg', 'assets/bg.png');
-        this.load.image('buttonHome', 'assets/button home (1).png');
-        this.load.image('bermainButton1', 'assets/button kuis.png');
-        this.load.image('bermainButton2', 'assets/button menulis lontara.png');
+        this.load.image('buttonHome', 'assets/button_home_(1).png');
+        this.load.image('bermainButton1', 'assets/button_kuis.png');
+        this.load.image('bermainButton2', 'assets/button_menulis_lontara.png');
         this.load.audio('soundHome', 'music/click_effect-86995.mp3'); // Suara tombol home
         this.load.audio('buttonSound', 'music/item-pick-up-38258.mp3'); // Suara tombol
     }

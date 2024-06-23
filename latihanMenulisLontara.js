@@ -34,7 +34,7 @@ class latihanMenulisLontara extends Phaser.Scene {
 
     preload() {
         this.load.image('latihanmenulisbg', 'assets/bg2.png');
-        this.load.image('buttonHome', 'assets/button kembali.png');
+        this.load.image('buttonHome', 'assets/button_kembali.png');
         this.load.audio('button_click', 'music/click_effect-86995.mp3'); // Suara tombol home
         this.load.audio('soundHome', 'music/click_effect-86995.mp3');
         this.load.audio('wrong_answer_sound', 'music/negative_beeps-6008.mp3');
@@ -44,8 +44,8 @@ class latihanMenulisLontara extends Phaser.Scene {
         });
         this.load.image('button_hapus', 'assets/button_hapus.png');
         this.load.image('button_submit_jawaban', 'assets/button_submit_jawaban.png');
-        this.load.image('wrongMessage', 'assets/Frame salah.png');
-        this.load.image('trueMessage', 'assets/Frame benar.png');
+        this.load.image('wrongMessage', 'assets/Frame_salah.png');
+        this.load.image('trueMessage', 'assets/Frame_benar.png');
         console.log(this.training_questions);
     }
 

@@ -7,16 +7,16 @@ class alatMusik extends Phaser.Scene {
 
     preload() {
         this.load.image('alatMusikbg', 'assets/bg.png');
-        this.load.image('alatMusikContent1', 'assets/papan menu balajar musik 1.png');
-        this.load.image('alatMusikContent2', 'assets/papan menu balajar musik 2.png');
-        this.load.image('alatMusikContent3', 'assets/papan menu balajar musik 3.png');
-        this.load.image('alatMusikContent4', 'assets/papan menu balajar musik 4.png');
-        this.load.image('alatMusikContent5', 'assets/papan menu balajar musik 5.png');
-        this.load.image('alatMusikContent6', 'assets/papan menu balajar musik 6.png');
-        this.load.image('alatMusikContent7', 'assets/papan menu balajar musik 7.png');
-        this.load.image('buttonBack', 'assets/button kembali.png');
-        this.load.image('buttonKiri', 'assets/button geser ke kiri.png');
-        this.load.image('buttonKanan', 'assets/button geser ke kanan.png');
+        this.load.image('alatMusikContent1', 'assets/papan_menu_balajar_musik_1.png');
+        this.load.image('alatMusikContent2', 'assets/papan_menu_balajar_musik_2.png');
+        this.load.image('alatMusikContent3', 'assets/papan_menu_balajar_musik_3.png');
+        this.load.image('alatMusikContent4', 'assets/papan_menu_balajar_musik_4.png');
+        this.load.image('alatMusikContent5', 'assets/papan_menu_balajar_musik_5.png');
+        this.load.image('alatMusikContent6', 'assets/papan_menu_balajar_musik_6.png');
+        this.load.image('alatMusikContent7', 'assets/papan_menu_balajar_musik_7.png');
+        this.load.image('buttonBack', 'assets/button_kembali.png');
+        this.load.image('buttonKiri', 'assets/button_geser_ke_kiri.png');
+        this.load.image('buttonKanan', 'assets/button_geser_ke_kanan.png');
         this.load.audio('soundBack', 'music/click_effect-86995.mp3'); // Suara tombol
     }
 

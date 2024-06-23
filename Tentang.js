@@ -5,8 +5,8 @@ class Tentang extends Phaser.Scene {
 
     preload() {
         this.load.image('tentang', 'assets/bg.png');
-        this.load.image('tentangContent', 'assets/papan tentang.png');
-        this.load.image('buttonHome', 'assets/button home (1).png');
+        this.load.image('tentangContent', 'assets/papan_tentang.png');
+        this.load.image('buttonHome', 'assets/button_home_(1).png');
         this.load.audio('soundHome', 'music/click_effect-86995.mp3'); // Suara tombol
     }
 

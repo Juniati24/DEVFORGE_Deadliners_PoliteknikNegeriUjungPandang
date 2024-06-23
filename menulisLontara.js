@@ -37,7 +37,7 @@ class menulisLontara extends Phaser.Scene {
 
     preload() {
         this.load.image('heart', 'assets/heart.png')
-        this.load.image('menulisbg', 'assets/Frame pengenalan lontara.png');
+        this.load.image('menulisbg', 'assets/Frame_pengenalan_lontara.png');
         this.load.audio('button_click', 'music/click_effect-86995.mp3'); // Suara tombol home
         this.load.audio('wrong_answer_sound', 'music/negative_beeps-6008.mp3');
         this.load.audio('true_answer_sound', 'music/correct-2-46134.mp3'); 
@@ -46,11 +46,11 @@ class menulisLontara extends Phaser.Scene {
         });
         this.load.image('button_hapus', 'assets/button_hapus.png');
         this.load.image('button_submit_jawaban', 'assets/button_submit_jawaban.png');
-        this.load.image('wrongMessage', 'assets/Frame salah.png');
-        this.load.image('trueMessage', 'assets/Frame benar.png');
-        this.load.image('buttonBack', 'assets/button kembali.png');
+        this.load.image('wrongMessage', 'assets/Frame_salah.png');
+        this.load.image('trueMessage', 'assets/Frame_benar.png');
+        this.load.image('buttonBack', 'assets/button_kembali.png');
         this.load.audio('soundBack', 'music/click_effect-86995.mp3');
-        this.load.image('akhirKuis', 'assets/Frame skor1.png');
+        this.load.image('akhirKuis', 'assets/Frame_skor1.png');
         this.load.audio('tepukTangan', 'music/applause-alks-ses-efekti-125030.mp3');
     }
 

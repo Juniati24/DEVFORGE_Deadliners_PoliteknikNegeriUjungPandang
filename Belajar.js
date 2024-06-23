@@ -5,12 +5,12 @@ class Belajar extends Phaser.Scene {
 
     preload() {
         this.load.image('belajarbg', 'assets/bg.png');
-        this.load.image('buttonHome', 'assets/button home (1).png');
-        this.load.image('belajarButton1', 'assets/button baju adat.png');
-        this.load.image('belajarButton2', 'assets/button lontara.png');
-        this.load.image('belajarButton3', 'assets/button alat musik.png');
-        this.load.image('belajarButton4', 'assets/button rumah adat.png');
-        this.load.image('belajarButton5', 'assets/button menulis.png');
+        this.load.image('buttonHome', 'assets/button_home_(1).png');
+        this.load.image('belajarButton1', 'assets/button_baju_adat.png');
+        this.load.image('belajarButton2', 'assets/button_lontara.png');
+        this.load.image('belajarButton3', 'assets/button_alat_musik.png');
+        this.load.image('belajarButton4', 'assets/button_rumah_adat.png');
+        this.load.image('belajarButton5', 'assets/button_menulis.png');
         this.load.audio('soundHome', 'music/click_effect-86995.mp3'); // Suara tombol home
         this.load.audio('buttonSound', 'music/item-pick-up-38258.mp3'); // Suara tombol
     }

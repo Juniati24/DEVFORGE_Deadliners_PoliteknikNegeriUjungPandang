@@ -4,10 +4,10 @@ class Home extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('home', 'assets/Frame awal.png');
-        this.load.image('button', 'assets/button belajar.png'); // Gambar tombol belajar
-        this.load.image('button1', 'assets/button bermain.png'); // Gambar tombol bermain
-        this.load.image('button2', 'assets/button tentang.png'); // Gambar tombol tentang
+        this.load.image('home', 'assets/Frame_awal.png');
+        this.load.image('button', 'assets/button_belajar.png'); // Gambar tombol belajar
+        this.load.image('button1', 'assets/button_bermain.png'); // Gambar tombol bermain
+        this.load.image('button2', 'assets/button_tentang.png'); // Gambar tombol tentang
         this.load.audio('buttonSound', 'music/item-pick-up-38258.mp3'); // Suara tombol
     }
 

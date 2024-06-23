@@ -7,13 +7,13 @@ class bajuAdat extends Phaser.Scene {
 
     preload() {
         this.load.image('bajuAdatbg', 'assets/bg.png');
-        this.load.image('bajuAdatContent1', 'assets/papan menu balajar 1.png');
-        this.load.image('bajuAdatContent2', 'assets/papan menu balajar 2.png');
-        this.load.image('bajuAdatContent3', 'assets/papan menu balajar 3.png');
-        this.load.image('bajuAdatContent4', 'assets/papan menu balajar 4.png');
-        this.load.image('buttonBack', 'assets/button kembali.png');
-        this.load.image('buttonKiri', 'assets/button geser ke kiri.png');
-        this.load.image('buttonKanan', 'assets/button geser ke kanan.png');
+        this.load.image('bajuAdatContent1', 'assets/papan_menu_balajar_1.png');
+        this.load.image('bajuAdatContent2', 'assets/papan_menu_balajar_2.png');
+        this.load.image('bajuAdatContent3', 'assets/papan_menu_balajar_3.png');
+        this.load.image('bajuAdatContent4', 'assets/papan_menu_balajar_4.png');
+        this.load.image('buttonBack', 'assets/button_kembali.png');
+        this.load.image('buttonKiri', 'assets/button_geser_ke_kiri.png');
+        this.load.image('buttonKanan', 'assets/button_geser_ke_kanan.png');
         this.load.audio('soundBack', 'music/click_effect-86995.mp3'); // Suara tombol
     }
 
